@@ -1,0 +1,22 @@
+.image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 10px red, 0 0 20px red;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+  }
+  
+  .image-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+  }
+  
+  .gallery-image {
+    width: 100%; /* Se adapta al tamaño del contenedor */
+    height: 100%;
+    object-fit: contain; /* La imagen se ajusta sin deformarse */
+    border-radius: 10px;
+  }
+  
+  
