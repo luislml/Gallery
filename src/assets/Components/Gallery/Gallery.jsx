@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Gallery.css";
 import GalleryItem from "../GalleryItem/GalleryItem";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid"; // Asegúrate de importar Grid
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
 
 const genres = ["All", "Nature", "City", "Abstract", "Animals", "People"];
 const UNSPLASH_ACCESS_KEY = "zQg5ix71xlHlkuADEYD_tciK-maG1RJUE75lDA_rFeU"; // Reemplaza con tu Access Key
-
 
 function Gallery() {
   const [images, setImages] = useState([]);
@@ -30,8 +35,8 @@ function Gallery() {
         }
       );
 
-      // Si usamos búsqueda, los resultados están en `results`
-      const fetchedImages = query || genre !== "All" ? response.data.results : response.data;
+      const fetchedImages =
+        query || genre !== "All" ? response.data.results : response.data;
 
       setImages(
         fetchedImages.map((img) => ({
@@ -48,66 +53,87 @@ function Gallery() {
     }
   };
 
-  // Cargar imágenes iniciales
   useEffect(() => {
     fetchImages();
   }, []);
 
-  // Función para manejar la búsqueda
   const handleSearch = (e) => {
     e.preventDefault();
     fetchImages(searchTerm);
   };
 
-  // Función para manejar los géneros
   const handleGenreClick = (genre) => {
     setSelectedGenre(genre);
     fetchImages("", genre);
   };
 
   return (
-    <div className="gallery-container">
-      <div className="gallery-filters">
-        {/* Filtros */}
-        <div className="filters-wrapper">
-          <div className="genre-buttons">
-            {genres.map((genre) => (
-              <button
-                key={genre}
-                className={`genre-button ${selectedGenre === genre ? "active" : ""}`}
-                onClick={() => handleGenreClick(genre)}
-              >
-                {genre}
-              </button>
-            ))}
-          </div>
-          {/* Barra de búsqueda */}
-          <form onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search images..."
-              className="search-bar"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </form>
-        </div>
-      </div>
+    <Container>
+      <div className="gallery-container">
+        <div className="gallery-filters">
+          <div className="filters-wrapper">
+            <Grid container spacing={2} alignItems="center" justifyContent="space-between">
+              
 
-      {/* Galería */}
-      {loading ? (
-        <p className="loading-text">Loading images...</p>
-      ) : (
-        <div className="gallery">
-          {images.map((image) => (
-            <GalleryItem key={image.id} src={image.src} alt={image.alt} />
-          ))}
-          {images.length === 0 && <p className="no-results">No images found</p>}
+              {/* Botones de géneros */}
+              <Grid item xs={12} sm={6} md={8}>
+                <div className="genre-buttons">
+                  {genres.map((genre) => (
+                    <Button
+                      key={genre}
+                      size="large"
+                      variant={selectedGenre === genre ? "contained" : "outlined"}
+                      color="error"
+                      onClick={() => handleGenreClick(genre)}
+                      style={{ margin: "5px" }}
+                    >
+                      {genre}
+                    </Button>
+                  ))}
+                </div>
+              </Grid>
+              {/* Barra de búsqueda */}
+              <Grid item xs={12} sm={6} md={4}>
+                <form onSubmit={handleSearch} className="form-container">
+                  <TextField
+                    size="small"
+                    error
+                    id="outlined-error"
+                    label="SEARCH..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <SearchIcon className="search-icon" />
+                        </InputAdornment>
+                      ),
+                    }}
+                    InputLabelProps={{
+                      className: "neon-label",
+                    }}
+                    className="centered-search"
+                  />
+                </form>
+              </Grid>
+            </Grid>
+          </div>
         </div>
-      )}
-    </div>
+
+        {/* Galería */}
+        {loading ? (
+          <p className="loading-text">Loading images...</p>
+        ) : (
+          <div className="gallery">
+            <GalleryItem images={images} />
+            {images.length === 0 && (
+              <p className="no-results">No images found</p>
+            )}
+          </div>
+        )}
+      </div>
+    </Container>
   );
 }
 
 export default Gallery;
-
