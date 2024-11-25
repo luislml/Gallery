@@ -1,93 +1,38 @@
-.gallery-filters {
-    margin-bottom: 20px;
-    text-align: center;
-    width: 100%;
-  }
-  
-  .filters-wrapper {
-    display: flex;
-    justify-content: space-between; /* Espacio entre los botones y la barra */
-    align-items: center;
-    flex-wrap: wrap; /* Asegura que todo se ajuste en pantallas pequeñas */
-    gap: 10px;
-  }
-  
-  .genre-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    flex-grow: 1; /* Ocupa todo el espacio disponible */
-  }
-  
-  .search-bar {
-    width: 250px;
-    padding: 10px;
-    border: 2px solid red;
-    border-radius: 5px;
-    background: black;
-    color: white;
-    font-size: 16px;
-  }
-  @media (max-width: 768px) {
-    .filters-wrapper {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .search-bar {
-      width: 100%; /* Ocupa todo el ancho disponible */
-      max-width: 400px;
-      margin-top: 10px;
-    }
-  }
-  
-  .search-bar:focus {
-    outline: none;
-    box-shadow: 0 0 10px red;
-  }
+/* Estilos del TextField */
+.neon-textfield {
+  color: white !important; /* Texto en blanco */
+  background-color: rgba(0, 0, 0, 0.7) !important; /* Fondo oscuro */
+}
 
-  /* gallery */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
-    gap: 20px; /* Espacio entre las imágenes */
-    margin-top: 20px;
-  }
-  
-  .gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 0 10px red, 0 0 20px red;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .gallery-item:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-  }
-  
-  .gallery-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* La imagen cubre completamente el contenedor sin deformarse */
-    border-radius: 10px;
-  }
-  
+
+/* Estilos del label */
+.neon-label {
+  color: #ff0707 !important; /* Label en color rojo neón */
+  font-size: 14px !important;
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #ff073a !important; /* Efecto de neón */
+}
+
+/* Estilos del icono de búsqueda */
+.search-icon {
+  color: white !important; /* Icono de búsqueda blanco */
+}
+.gallery-container {
+  width: 100%; /* Ajusta al ancho completo del contenedor */
+}
+
+
+.centered-search .MuiInputBase-input {
+  color: white; /* Cambia el color del texto dentro del campo de búsqueda */
+}
+
+/* Opcionalmente, si también quieres cambiar el color del texto del label */
+.centered-search .MuiInputLabel-root {
+  color: white; /* Cambia el color del label */
+}
+
+
+
   
 
-  @media (max-width: 768px) {
-    .gallery {
-      grid-template-columns: 1fr; /* Una sola columna en pantallas pequeñas */
-    }
-  }
-
-  .loading-text {
-    color: red;
-    font-size: 18px;
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  
+ 
   

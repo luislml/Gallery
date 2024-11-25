@@ -1,22 +1,53 @@
-.image-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 0 10px red, 0 0 20px red;
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
-  }
-  
-  .image-container:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
-  }
-  
-  .gallery-image {
-    width: 100%; /* Se adapta al tamaño del contenedor */
-    height: 100%;
-    object-fit: contain; /* La imagen se ajusta sin deformarse */
-    border-radius: 10px;
-  }
-  
-  
+/* Contenedor de la galería */
+.gallery-container1 {
+  width: 100%;
+  max-height: 600px;
+  overflow-y: auto; /* Esto agrega el scroll vertical */
+  transition: all 0.3s ease; /* Suaviza el efecto de borde */
+}
+
+/* Estilo para la imagen cuando el mouse pasa sobre ella */
+.gallery-container1 img:hover {
+  border: 4px solid red; /* Borde rojo al pasar el mouse */
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Agrega una sombra roja */
+}
+/* Contenedor de la imagen en pantalla completa */
+.full-screen-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegura que la imagen esté sobre otros elementos */
+}
+
+/* Estilo de la imagen */
+.full-screen-image {
+  max-width: 90%; /* Mantén la imagen ajustada a la pantalla */
+  max-height: 90%;
+  object-fit: contain; /* La imagen se ajusta proporcionalmente sin distorsionarse */
+}
+
+/* Estilo para el botón de cierre */
+.full-screen-container .close-button {
+  position: absolute;
+  top: 20px; /* Posiciona el botón en la parte superior */
+  right: 20px; /* Posiciona el botón a la derecha */
+  color: white; /* Color blanco para el ícono */
+  background-color: red; /* Fondo rojo */
+  border-radius: 50%; /* Hace el botón circular */
+  padding: 12px; /* Aumenta el área de clic */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); /* Sombra para visibilidad */
+  z-index: 2000; /* Asegura que el botón esté por encima de la imagen */
+}
+
+/* Efecto hover sobre el botón */
+.full-screen-container .close-button:hover {
+  background-color: darkred; /* Fondo rojo oscuro al pasar el ratón */
+}
+
+
