@@ -1,56 +1,81 @@
-import React, { useState, useRef } from "react";
-import "./GalleryItem.css";
 
-function GalleryItem({ src, alt }) {
-  const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
-  const imageRef = useRef(null);
-  const containerRef = useRef(null);
+import React, { useState } from "react";
+import { ImageList, ImageListItem, ImageListItemBar, IconButton } from "@mui/material";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import CloseIcon from "@mui/icons-material/Close";
+import "./GalleryItem.css"; // Asegúrate de importar el archivo CSS
 
-  // Función que se ejecuta cuando la imagen se carga
-  const handleImageLoad = () => {
-    if (imageRef.current) {
-      setImageDimensions({
-        width: imageRef.current.naturalWidth,
-        height: imageRef.current.naturalHeight,
-      });
-    }
+function GalleryItem({ images }) {
+  const [fullScreenImage, setFullScreenImage] = useState(null); // Estado para la imagen en pantalla completa
+
+  const handleClick = (src) => {
+    setFullScreenImage(src); // Establece la imagen seleccionada en pantalla completa
   };
 
-  // Función para abrir la imagen en pantalla completa
-  const handleClick = () => {
-    if (containerRef.current) {
-      // Usamos la API de pantalla completa
-      if (containerRef.current.requestFullscreen) {
-        containerRef.current.requestFullscreen();
-      } else if (containerRef.current.mozRequestFullScreen) { // Firefox
-        containerRef.current.mozRequestFullScreen();
-      } else if (containerRef.current.webkitRequestFullscreen) { // Safari
-        containerRef.current.webkitRequestFullscreen();
-      } else if (containerRef.current.msRequestFullscreen) { // IE/Edge
-        containerRef.current.msRequestFullscreen();
-      }
-    }
+  const handleClose = () => {
+    setFullScreenImage(null); // Cierra la vista de pantalla completa
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="image-container"
-      style={{
-        width: `${imageDimensions.width}px`,  // Ajustamos el ancho del contenedor a la imagen
-        height: `${imageDimensions.height}px`, // Ajustamos la altura del contenedor a la imagen
-      }}
+    <>
+      {/* Vista de galería con scroll */}
+      <div className="gallery-container1">
+        <ImageList variant="masonry" cols={3} gap={8}>
+          {images.map((item) => (
+            <ImageListItem key={item.id}>
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                onClick={() => handleClick(item.src)} // Abre la imagen en pantalla completa
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                }}
+              />
+              <ImageListItemBar
+                className="image-list-item-bar"
+                title={item.alt}
+                position="top"
+                actionIcon={
+                  <IconButton aria-label={`star ${item.alt}`}>
+                    <StarBorderIcon />
+                  </IconButton>
+                }
+                actionPosition="left"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </div>
+
+      {/* Vista de imagen en pantalla completa */}
+      {fullScreenImage && (
+  <div className="full-screen-container" onClick={handleClose}>
+    <img
+      src={fullScreenImage}
+      alt="Full screen"
+      className="full-screen-image"
+      onClick={(e) => e.stopPropagation()} // Evita que el clic en la imagen cierre el modal
+    />
+    <IconButton
+      className="close-button"
+      onClick={handleClose}
+      aria-label="Close"
     >
-      <img
-        ref={imageRef}
-        src={src}
-        alt={alt}
-        className="gallery-image"
-        onClick={handleClick} // Al hacer clic, activamos el modo de pantalla completa
-        onLoad={handleImageLoad} // Captura el tamaño de la imagen cuando se carga
-      />
-    </div>
+      <CloseIcon />
+    </IconButton>
+  </div>
+)}
+
+
+    </>
   );
 }
 
 export default GalleryItem;
+
+  
+
+
